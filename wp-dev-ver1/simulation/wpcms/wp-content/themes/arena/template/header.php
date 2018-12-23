@@ -14,7 +14,7 @@
           $post_data = get_page_by_path(mb_strtolower($v), "OBJECT", "post");
           $permalink = ($post_data)? get_permalink($post_data->ID) : null;
         endif;
-        $query_arg[$keys[$k]] = $v;
+        $query_arg[$keys[$k]] = ($keys[$k] == 'mark')? urlencode($v) : $v;
       endforeach;
     endif;
     $url = ($query_arg && $permalink) ? add_query_arg($query_arg, $permalink) : null;
@@ -30,17 +30,22 @@
   endforeach;
   
 ?>
-  <a class=header__logo href="<?php echo get_bloginfo('url'); ?>"><img src="<?php echo get_bloginfo('url'); ?>/assets/images/common/header-logo.png" alt="<?php echo get_bloginfo('name'); ?>"> </a> <a class="navigation-trigger u-sp" id=navigation-trigger><i></i></a>
+  <a class=header__logo href="<?php echo network_site_url(); ?>">
+    <img src="<?php echo network_site_url(); ?>assets/images/common/header-logo.png" alt="<?php echo get_bloginfo('name'); ?>">
+  </a>
+  <a class="navigation-trigger u-sp" id="navigation-trigger"><i></i></a>
+
   <nav class="navigation u-sp" id=navigation role=navigation>
     <h5 class=navigation__head>ウェアの種類を選ぶ</h5>
     <ul class=navigation__wear-list>
       <li> <a href="/simulation/#item-swimwear" class=navigation-link>Swim Wear</a> </li>
       <li> <a href="/simulation/#item-teamwear" class=navigation-link>Team Wear</a> </li>
     </ul>
-    <h5 class=navigation__head>保存したStyle</h5>
-    <ul class=navigation-style__list>
+    <h5 class="navigation__head">保存したStyle</h5>
+    <ul class="navigation-style__list js-style-list">
     <?php foreach((array)$style_list as $key => $value): ?>
-      <li class="<?php if($value['active']): ?>active<?php endif; ?>" data-number="<?php echo $key+1; ?>"> <span class=navigation-style__head><?php echo $value['name']; ?></span>
+      <li class="navigation-style__item <?php if($value['active']): ?>active<?php endif; ?>" data-number="<?php echo $key+1; ?>">
+        <span class=navigation-style__head><?php echo $value['name']; ?></span>
         <p class=navigation-style__desc>
         <?php if($value['url']): ?>
           <a href="<?php echo ($value['url'])? $value['url'] : 'javascript:void(0);'; ?>" class="<?php if($value['url']): ?>registered<?php endif; ?>">
@@ -55,17 +60,26 @@
       </li>
     <?php endforeach; ?>
     </ul>
-    <h5 class=navigation__head><?php echo $help->link_description; ?></h5> <a href="<?php echo $help->link_url; ?>" class="navigation-link navigation-link--help" target="_blank"><?php echo $help->link_name; ?></a>
+
+    <h5 class=navigation__head><?php echo $help->link_description; ?></h5>
+    <a href="<?php echo $help->link_url; ?>" class="navigation-link navigation-link--help" target="_blank"><?php echo $help->link_name; ?></a>
   </nav>
+
   <div class=header__menu>
     <div class="header-style js-style-list">
       <p class=header-style__title>Style:</p>
       <ul class="clear header-style__list">
       <?php foreach((array)$style_list as $key => $value): ?>
-        <li class="header-style__item" data-number="<?php echo $key+1; ?>"><a href="<?php echo ($value['url'])? $value['url'] : 'javascript:void(0);'; ?>" class="<?php if($value['url']): ?>registered<?php endif; ?> <?php if($value['active']): ?>active<?php endif; ?>"><?php echo $value['name']; ?></a><i class="icon icon--style-close"></i></li>
+        <li class="header-style__item" data-number="<?php echo $key+1; ?>">
+          <a href="<?php echo ($value['url'])? $value['url'] : 'javascript:void(0);'; ?>" class="<?php if($value['url']): ?>registered<?php endif; ?> <?php if($value['active']): ?>active<?php endif; ?>"><?php echo $value['name']; ?></a>
+          <i class="icon icon--style-close"></i>
+        </li>
       <?php endforeach; ?>
       </ul>
     </div>
-    <a href="<?php echo $help->link_url; ?>" target="_blank">・<?php echo $help->link_name; ?></a>
-    <a href="javascript:void(0);" class="js-popup-trigger" data-popup=".popup--system-requirements">・動作環境</a>
+
+    <div class="header__help">
+      <a href="<?php echo $help->link_url; ?>" target="_blank">・<?php echo $help->link_name; ?></a>
+      <a href="javascript:void(0);" class="js-popup-trigger" data-popup=".popup--system-requirements">・動作環境</a>
+    </div>
   </div>
