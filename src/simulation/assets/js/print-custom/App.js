@@ -83,6 +83,7 @@ export default class SimulationCommon extends Base {
       return false;
     });
 
+    $(document).on(window.eventtype, '.js-order-link-make', orderMenu.orderLinkMake);
     $(document).on(window.eventtype, '.js-modal', this.modals);
     $(document).on('click', '.js-base-display', this.imageModal);
     $(window).on('resize', this.itemSize);
