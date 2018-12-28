@@ -51,8 +51,10 @@
   }
 
   &-close {
+    /* top: 1.25rem; */
+
+    top: 1.65em;
     position: absolute;
-    top: 1.25rem;
     right: 1.667rem;
     display: inline-block;
     width: 2.583rem;
