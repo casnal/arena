@@ -147,7 +147,7 @@ endif;
               curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
               curl_setopt($ch, CURLOPT_USERPWD, $basic_auth['user'] . ":" . $basic_auth['pass']);
               curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-              curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
+              // curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
               $result = curl_exec($ch);
               curl_close($ch);
               echo $result;

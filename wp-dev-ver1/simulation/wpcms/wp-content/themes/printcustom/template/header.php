@@ -14,7 +14,7 @@
           $post_data = get_page_by_path(mb_strtolower($v), "OBJECT", "post");
           $permalink = ($post_data)? get_permalink($post_data->ID) : null;
         endif;
-        $query_arg[$keys[$k]] = $v;
+        $query_arg[$keys[$k]] = ($keys[$k] == 'mark')? urlencode($v) : $v;
       endforeach;
     endif;
     $url = ($query_arg && $permalink) ? add_query_arg($query_arg, $permalink) : null;

@@ -28,9 +28,9 @@
         $array['message'] = 'マークの情報が不足しています。' . $_GET['text'] . '.';
       elseif($lang == 'en'):
         // $text = str_replace('%26', '&amp;', $text);
-        // $text = str_replace('&amp;', '&', $text);
-        // if(preg_match("/^([a-zA-Z0-9]|[.-]|[&]|[\s])+$/u", $text)):
-        if(preg_match("/^([a-zA-Z0-9]|[.-]|[\s])+$/u", $text)):
+        $text = str_replace('&amp;', '&', $text);
+        if(preg_match("/^([a-zA-Z0-9]|[.-]|[&]|[\s])+$/u", $text)):
+        // if(preg_match("/^([a-zA-Z0-9]|[.-]|[\s])+$/u", $text)):
         // if(preg_match("/^([a-zA-Z0-9]|[\s])+$/u", $text)):
           $count = mb_strlen($text);
           if($count > $max):
